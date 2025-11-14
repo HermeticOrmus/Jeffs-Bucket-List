@@ -6,6 +6,7 @@ export interface CardProps {
   padding?: 'none' | 'sm' | 'md' | 'lg'
   hoverable?: boolean
   onClick?: () => void
+  style?: React.CSSProperties
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -14,6 +15,7 @@ export const Card: React.FC<CardProps> = ({
   padding = 'md',
   hoverable = false,
   onClick,
+  style,
 }) => {
   const paddingStyles = {
     none: '',
@@ -29,7 +31,7 @@ export const Card: React.FC<CardProps> = ({
   const combinedClassName = `bg-white rounded-xl border-2 border-gray-200 shadow-md ${paddingStyles[padding]} ${hoverStyle} ${className}`
 
   const Component = onClick ? 'button' : 'div'
-  const extraProps = onClick ? { onClick, type: 'button' as const } : {}
+  const extraProps = onClick ? { onClick, type: 'button' as const, style } : { style }
 
   return <Component className={combinedClassName} {...extraProps}>{children}</Component>
 }
@@ -37,28 +39,32 @@ export const Card: React.FC<CardProps> = ({
 export interface CardHeaderProps {
   children: React.ReactNode
   className?: string
+  style?: React.CSSProperties
 }
 
 export const CardHeader: React.FC<CardHeaderProps> = ({
   children,
   className = '',
+  style,
 }) => {
-  return <div className={`mb-4 ${className}`}>{children}</div>
+  return <div className={`mb-4 ${className}`} style={style}>{children}</div>
 }
 
 export interface CardTitleProps {
   children: React.ReactNode
   className?: string
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  style?: React.CSSProperties
 }
 
 export const CardTitle: React.FC<CardTitleProps> = ({
   children,
   className = '',
   as: Component = 'h3',
+  style,
 }) => {
   return (
-    <Component className={`text-2xl font-bold text-gray-900 ${className}`}>
+    <Component className={`text-2xl font-bold text-gray-900 ${className}`} style={style}>
       {children}
     </Component>
   )
@@ -67,14 +73,16 @@ export const CardTitle: React.FC<CardTitleProps> = ({
 export interface CardDescriptionProps {
   children: React.ReactNode
   className?: string
+  style?: React.CSSProperties
 }
 
 export const CardDescription: React.FC<CardDescriptionProps> = ({
   children,
   className = '',
+  style,
 }) => {
   return (
-    <p className={`text-base text-gray-600 mt-2 leading-relaxed ${className}`}>
+    <p className={`text-base text-gray-600 mt-2 leading-relaxed ${className}`} style={style}>
       {children}
     </p>
   )
