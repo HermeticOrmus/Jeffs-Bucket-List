@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import '../styles/globals.css'
+import { AuthProvider } from '@/contexts/AuthContext'
+import Navigation from '@/components/layout/Navigation'
 
 export const metadata: Metadata = {
   title: "Jeff's Bucket List - Live Your Remaining Years with Intention",
@@ -12,7 +14,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#eb7008',
+  themeColor: '#7a9b8e',
 }
 
 export default function RootLayout({
@@ -26,68 +28,52 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>
-        {/* Skip to main content link for keyboard navigation */}
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
+      <body style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+        <AuthProvider>
+          {/* Skip to main content link for keyboard navigation */}
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
 
-        {/* Main navigation */}
-        <nav className="bg-white border-b-2 border-gray-200 px-6 py-4" role="navigation" aria-label="Main navigation">
-          <div className="max-w-6xl mx-auto flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold text-primary-600">
-                Jeff&apos;s Bucket List
-              </h1>
-              <p className="text-sm text-gray-600 mt-1">Living with intention and meaning</p>
-            </div>
-            <div className="flex gap-6">
-              <a href="/" className="text-base font-semibold hover:text-primary-600 transition-colors">
-                Home
-              </a>
-              <a href="/discovery" className="text-base font-semibold hover:text-primary-600 transition-colors">
-                Discovery
-              </a>
-              <a href="/goals" className="text-base font-semibold hover:text-primary-600 transition-colors">
-                My Goals
-              </a>
-            </div>
-          </div>
-        </nav>
+          {/* Main navigation */}
+          <Navigation />
 
-        {/* Main content area */}
-        <main id="main-content" className="min-h-screen bg-gray-50" role="main">
-          {children}
-        </main>
+          {/* Main content area */}
+          <main id="main-content" className="min-h-screen" role="main">
+            {children}
+          </main>
 
-        {/* Footer */}
-        <footer className="bg-gray-800 text-white px-6 py-8 mt-12" role="contentinfo">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div>
-                <h3 className="text-lg font-bold mb-3">About</h3>
-                <p className="text-gray-300">
-                  A platform designed for adults 60+ to discover and achieve meaningful life goals through thoughtful reflection.
-                </p>
+          {/* Footer */}
+          <footer className="px-6 py-8 mt-12" style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-subtle)' }} role="contentinfo">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                  <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--text-primary)' }}>About</h3>
+                  <p style={{ color: 'var(--text-secondary)' }}>
+                    A platform designed for adults 60+ to discover and achieve <em>meaningful life goals</em> through thoughtful reflection.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--text-primary)' }}>Privacy</h3>
+                  <p style={{ color: 'var(--text-secondary)' }}>
+                    Your reflections and goals are <em>private by default</em>. You control what you share and with whom.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--text-primary)' }}>Support</h3>
+                  <p style={{ color: 'var(--text-secondary)' }}>
+                    Need help? Contact us at <em>support@jeffsbucketlist.com</em>
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold mb-3">Privacy</h3>
-                <p className="text-gray-300">
-                  Your reflections and goals are private by default. You control what you share and with whom.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold mb-3">Support</h3>
-                <p className="text-gray-300">
-                  Need help? Contact us at support@jeffsbucketlist.com
+              <div className="mt-8 pt-6" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+                <p className="text-center" style={{ color: 'var(--text-tertiary)' }}>
+                  &copy; 2025 Jeff&apos;s Bucket List. <em>Built with respect and dignity.</em>
                 </p>
               </div>
             </div>
-            <div className="mt-8 pt-6 border-t border-gray-700 text-center text-gray-400">
-              <p>&copy; 2025 Jeff&apos;s Bucket List. Built with respect and dignity.</p>
-            </div>
-          </div>
-        </footer>
+          </footer>
+        </AuthProvider>
       </body>
     </html>
   )
