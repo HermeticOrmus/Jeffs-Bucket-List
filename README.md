@@ -1,73 +1,297 @@
 # Jeff's Bucket List Platform
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/HermeticOrmus/Jeffs-Bucket-List)
+
 ## Mission
+
 Create a personalized bucket list platform that helps individuals (particularly those in later life stages) develop and achieve meaningful life goals through thoughtful questioning and supportive features.
 
-## Project Overview
-Born from a conversation with Jeff (73), this platform aims to help people:
-- Discover what truly matters to them through guided questions
-- Create personalized bucket lists based on their values and interests
-- Get actionable support to achieve their goals
-- Connect with others on similar journeys
+## Project Status
 
-## Key Features (Proposed)
-1. **Guided Discovery Process**
-   - Thoughtful questionnaire to uncover values and desires
-   - Life review exercises to identify unfulfilled dreams
-   - Priority setting based on health, time, and resources
+**✅ MVP Built and Ready for Deployment**
 
-2. **Personalized Bucket List Creation**
-   - Categories: Travel, Relationships, Skills, Experiences, Legacy, etc.
-   - Difficulty/feasibility assessment
-   - Time and resource planning
+The platform is now fully functional with the core discovery flow implemented. Ready to deploy to Vercel!
 
-3. **Achievement Support System**
-   - Step-by-step goal breakdown
-   - Resource recommendations
-   - Progress tracking
-   - Community support and accountability
+## What's Built
 
-4. **Special Considerations for Older Adults**
-   - Health and mobility considerations
-   - Budget-conscious options
-   - Legacy and meaning-focused goals
-   - Family involvement features
+### Core Features (Phase 1 - MVP)
 
-## Target Audience
-- Primary: Adults 60+ planning their remaining years meaningfully
-- Secondary: Anyone seeking to live more intentionally
+1. **Question-Based Discovery Engine**
+   - Thoughtful, age-appropriate questions across 6 life categories
+   - Progressive question flow with skip functionality
+   - Automatic progress saving
+   - 30+ initial questions across all categories
 
-## Technical Stack (TBD)
-- Frontend: React/Next.js for accessible, senior-friendly UI
-- Backend: Node.js/Supabase for scalability
-- AI Integration: For personalized recommendations and support
+2. **Six Life Categories**
+   - ❤️ Reconnection (relationships to rebuild)
+   - 📚 Learning (skills to acquire)
+   - 🎨 Creation (things to make)
+   - ✅ Completion (unfinished business)
+   - 🤝 Contribution (ways to give back)
+   - 🌟 Simple Joys (moments to savor)
+
+3. **Goal Suggestion System**
+   - Personalized goal recommendations based on responses
+   - Confidence scoring for relevance
+   - Direct goal creation from suggestions
+
+4. **Senior-Friendly Design**
+   - Minimum 18px font sizes throughout
+   - High contrast colors for visibility
+   - 44px minimum touch targets
+   - Clean, uncluttered interface
+   - No time pressure or anxiety-inducing features
+
+5. **Core Pages**
+   - Home page with platform introduction
+   - Discovery landing page with category selection
+   - Interactive discovery session flow
+   - Goals dashboard with status tracking
+   - About page explaining platform philosophy
+
+## Technical Stack
+
+- **Frontend**: Next.js 15 (App Router) with TypeScript
+- **Styling**: Tailwind CSS with custom senior-friendly configuration
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth (ready for Phase 2)
+- **Deployment**: Vercel (optimized configuration included)
 
 ## Project Structure
+
 ```
 Jeffs-Bucket-List/
-├── research/           # Market research and competitive analysis
-├── design/            # UI/UX designs and wireframes
-├── docs/              # Documentation and planning
-├── src/               # Source code (when development begins)
-└── resources/         # Supporting materials
+├── src/
+│   ├── app/                    # Next.js app router pages
+│   │   ├── page.tsx           # Home page
+│   │   ├── about/             # About page
+│   │   ├── discovery/         # Discovery flow pages
+│   │   └── goals/             # Goals management
+│   ├── components/
+│   │   ├── ui/                # Base UI components (Button, Card, Input)
+│   │   ├── accessibility/     # Accessibility helpers
+│   │   ├── discovery/         # Discovery-specific components
+│   │   └── goals/             # Goal-specific components
+│   ├── lib/
+│   │   ├── supabase.ts        # Supabase client
+│   │   ├── mockData.ts        # Development mock data
+│   │   └── utils/             # Utility functions
+│   ├── types/                 # TypeScript type definitions
+│   └── styles/                # Global styles
+├── database/
+│   ├── migrations/            # Database schema migrations
+│   └── seeds/                 # Seed data (categories, questions)
+├── research/                  # Market research and competitive analysis
+├── specs/                     # Detailed feature specifications
+│   └── 001-question-discovery/ # Discovery engine spec
+├── CLAUDE.md                  # Development guidelines
+├── DEPLOYMENT.md             # Comprehensive deployment guide
+└── package.json              # Dependencies and scripts
 ```
 
-## Next Steps
-1. Complete comprehensive market research
-2. Analyze existing solutions and identify gaps
-3. Design initial wireframes and user flows
-4. Develop MVP features list
-5. Create technical architecture plan
+## Quick Start
+
+### Local Development
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/HermeticOrmus/Jeffs-Bucket-List.git
+   cd Jeffs-Bucket-List
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.local.example .env.local
+   # Edit .env.local with your Supabase credentials
+   ```
+
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open browser**
+   ```
+   http://localhost:3000
+   ```
+
+### Deploy to Vercel
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
+
+**Quick deploy:**
+1. Set up Supabase project
+2. Run database migrations
+3. Import to Vercel
+4. Add environment variables
+5. Deploy!
+
+## Development Commands
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run a11y-test    # Run accessibility tests (future)
+```
+
+## Key Design Principles
+
+### Gold Hat Philosophy
+
+Every feature must pass the empowerment test: "Does this empower users or extract from them?"
+
+- ✅ No dark patterns (FOMO mechanics, social pressure, gamification)
+- ✅ Privacy-first (everything private by default)
+- ✅ Dignity-preserving (treat users as wise elders, not subjects)
+- ✅ Ethical revenue model (transparent subscription, no data selling)
+
+### Senior-Specific Accessibility
+
+When implementing ANY UI component:
+
+1. **Visual**: Minimum 18px fonts, high contrast, generous spacing
+2. **Interaction**: Large touch targets (44x44px minimum), no time pressure
+3. **Content**: Plain language, patient pacing, respectful tone
+4. **Navigation**: Simple, consistent patterns, clear affordances
+
+### Privacy Architecture
+
+- Everything private by default
+- Granular sharing controls
+- Family access only through explicit invitation
+- Data export capability (user owns their data)
+- No third-party tracking or analytics that violate privacy
+
+## Database Schema
+
+The platform uses a comprehensive PostgreSQL schema with:
+
+- Row-Level Security for data isolation
+- Soft deletes for data recovery
+- Audit logging for GDPR compliance
+- Encrypted storage for sensitive responses
+- Flexible question/response structures
+
+See `database/migrations/001_initial_schema.sql` for full schema.
+
+## Current Question Bank
+
+- **30 initial questions** across 6 categories
+- Depth level 1 (surface-level discovery)
+- Multiple question types: text, multiple choice, scale, yes/no
+- Age-appropriate and respectful language
+- Optional skip functionality on all questions
+
+## What's Next (Phase 2)
+
+### Planned Features
+
+1. **User Authentication**
+   - Secure account creation
+   - Password recovery
+   - Profile management
+
+2. **Enhanced Discovery**
+   - Category-focused sessions (User Story 2)
+   - Progressive depth questions (User Story 3)
+   - Voice input support (User Story 4)
+
+3. **Goal Management**
+   - Milestone tracking
+   - Progress notes
+   - Status transitions
+   - Timeline visualization
+
+4. **Family Sharing**
+   - Invite-only access
+   - Granular permission controls
+   - Encouragement features
+
+5. **Legacy Features**
+   - Annual review summaries
+   - Exportable life story books
+   - Memory preservation
+
+## Target Audience
+
+- **Primary**: Adults 60+ planning their remaining years meaningfully
+- **Secondary**: Anyone seeking to live more intentionally
+- **Specific**: People like Jeff who want thoughtful reflection, not generic bucket lists
 
 ## Ethics & Values
+
 Following Hermetic principles and Gold Hat philosophy:
+
 - **Empowerment over extraction**: Help people live meaningfully, not maximize engagement
 - **Dignity and respect**: Especially for older users
 - **Privacy first**: Personal dreams and goals are sacred
 - **No dark patterns**: Clear, honest, supportive interface
 - **Sustainable pace**: Quality of life over metrics
 
+## Documentation
+
+- **[CLAUDE.md](CLAUDE.md)**: Development guidelines and project philosophy
+- **[DEPLOYMENT.md](DEPLOYMENT.md)**: Comprehensive deployment guide
+- **[specs/](specs/)**: Detailed feature specifications
+- **[research/](research/)**: Competitive analysis and market research
+
+## Contributing
+
+This project follows strict ethical guidelines. Before contributing:
+
+1. Read [CLAUDE.md](CLAUDE.md) for project philosophy
+2. Review feature specs in [specs/](specs/)
+3. Ensure changes align with senior-friendly accessibility standards
+4. Test with actual users 60+ when possible
+
+## Testing
+
+### Manual Testing Checklist
+
+- [ ] Home page loads and navigation works
+- [ ] Discovery flow allows question answering
+- [ ] Skip functionality works correctly
+- [ ] Goal suggestions appear after 5+ responses
+- [ ] Goals page displays correctly
+- [ ] Text is readable (minimum 18px)
+- [ ] Touch targets are large enough (44px)
+- [ ] High contrast mode works
+- [ ] Keyboard navigation works
+- [ ] Screen reader compatibility
+
+### Automated Testing (Future)
+
+- Unit tests for components
+- Integration tests for discovery flow
+- E2E tests with Playwright
+- Accessibility tests with axe-core
+
+## Support
+
+For questions or issues:
+- Check [DEPLOYMENT.md](DEPLOYMENT.md) for deployment help
+- Review [CLAUDE.md](CLAUDE.md) for development guidelines
+- Check Next.js docs: https://nextjs.org/docs
+- Check Supabase docs: https://supabase.com/docs
+
+## License
+
+[To be determined]
+
 ---
 
-*Created: November 13, 2025*
+**Built with:**
+- ❤️ Respect for the wisdom of older adults
+- 🎯 Focus on meaningful living over metrics
+- 🔒 Privacy and dignity as core values
+- ♿ Accessibility as a requirement, not an afterthought
+
+*Created: November 2025*
 *For: Jeff and all those seeking to live their remaining years with purpose*
