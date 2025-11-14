@@ -28,7 +28,7 @@ export default function ChatPage() {
     {
       id: '1',
       role: 'assistant',
-      content: "Hello, I'm Jeff. I'm here to help you think about what matters most to you in this season of your life. There's no rush—we can take all the time you need. What brings you here today?",
+      content: "Hello. I'm Jeff. I'm here to help you think about how you want to live the time you have left—not in a morbid way, but in a clarifying one. Most people never pause to ask themselves what truly matters. You're here, which means some part of you is ready to ask that question. So... what brings you here today?",
       timestamp: new Date(),
     },
   ])
@@ -117,7 +117,7 @@ export default function ChatPage() {
             Chat with Jeff
           </h1>
           <p className="text-lg flavor-text">
-            A thoughtful conversation about what matters most
+            A wise conversation about living with intention
           </p>
         </div>
 
@@ -244,9 +244,9 @@ export default function ChatPage() {
         {/* Helper Text */}
         <div className="mt-6 text-center">
           <p className="text-sm" style={{ color: 'hsl(var(--text-secondary))' }}>
-            Jeff is here to help you explore meaningful goals through thoughtful questions.
+            Jeff is a wise guide who's seen a lot and wants the best life for you.
             <br />
-            <em className="flavor-text">There are no wrong answers—only your authentic reflections.</em>
+            <em className="flavor-text">He'll ask powerful questions and help you see clearly what matters.</em>
           </p>
         </div>
       </div>
