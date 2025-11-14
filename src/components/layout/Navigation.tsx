@@ -29,8 +29,8 @@ export default function Navigation() {
     <nav
       className="px-6 py-4"
       style={{
-        background: 'var(--bg-secondary)',
-        borderBottom: '1px solid var(--border-subtle)',
+        background: 'hsl(var(--surface))',
+        borderBottom: '1px solid hsl(var(--border))',
       }}
       role="navigation"
       aria-label="Main navigation"
@@ -38,10 +38,10 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href={user ? '/dashboard' : '/'}>
           <div>
-            <h1 className="text-2xl font-serif font-bold" style={{ color: 'var(--color-primary-light)' }}>
+            <h1 className="text-2xl font-semibold" style={{ color: 'hsl(var(--accent-teal))', fontFamily: 'var(--font-serif)' }}>
               Jeff&apos;s Bucket List
             </h1>
-            <p className="text-sm italic" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-xs flavor-text">
               Living with intention and meaning
             </p>
           </div>
@@ -58,8 +58,8 @@ export default function Navigation() {
               style={{
                 color:
                   pathname === link.href
-                    ? 'var(--color-primary-light)'
-                    : 'var(--text-secondary)',
+                    ? 'hsl(var(--accent-teal))'
+                    : 'hsl(var(--text-secondary))',
               }}
             >
               {link.label}
