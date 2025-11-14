@@ -17,6 +17,7 @@ export default function Navigation() {
   const navLinks = user
     ? [
         { href: '/dashboard', label: 'Dashboard' },
+        { href: '/chat', label: 'Chat with Jeff' },
         { href: '/discovery', label: 'Discovery' },
         { href: '/goals', label: 'My Goals' },
       ]
