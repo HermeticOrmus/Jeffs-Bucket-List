@@ -1,0 +1,679 @@
+openapi: 3.0.3
+info:
+  title: Question-Based Discovery API
+  description: API for managing discovery sessions and questions for Jeff's Bucket List Platform
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@jeffsbucketlist.com
+
+servers:
+  - url: https://api.jeffsbucketlist.com/v1
+    description: Production server
+  - url: http://localhost:3000/v1
+    description: Development server
+
+security:
+  - bearerAuth: []
+
+paths:
+  /discovery/categories:
+    get:
+      summary: List all question categories
+      tags:
+        - Discovery
+      description: Returns all active question categories in display order
+      operationId: getCategories
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/QuestionCategory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /discovery/sessions:
+    get:
+      summary: List user's discovery sessions
+      tags:
+        - Discovery
+      description: Returns all discovery sessions for the authenticated user
+      operationId: getUserSessions
+      parameters:
+        - name: status
+          in: query
+          description: Filter by session status
+          schema:
+            type: string
+            enum: [in_progress, completed, paused]
+        - name: category_id
+          in: query
+          description: Filter by category
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DiscoverySession'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      summary: Start a new discovery session
+      tags:
+        - Discovery
+      description: Creates a new discovery session for the authenticated user
+      operationId: createSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+                  format: uuid
+                  description: Optional category to focus on
+              example:
+                category_id: "123e4567-e89b-12d3-a456-426614174000"
+      responses:
+        '201':
+          description: Session created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoverySession'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /discovery/sessions/{sessionId}:
+    get:
+      summary: Get discovery session details
+      tags:
+        - Discovery
+      description: Returns details of a specific discovery session
+      operationId: getSession
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          description: Discovery session ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoverySession'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    patch:
+      summary: Update discovery session
+      tags:
+        - Discovery
+      description: Updates session status or notes
+      operationId: updateSession
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          description: Discovery session ID
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [paused, completed]
+                session_notes:
+                  type: string
+                  maxLength: 1000
+      responses:
+        '200':
+          description: Session updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoverySession'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /discovery/sessions/{sessionId}/questions/next:
+    get:
+      summary: Get next question in session
+      tags:
+        - Discovery
+      description: Returns the next appropriate question based on user's responses
+      operationId: getNextQuestion
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          description: Discovery session ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Next question retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  question:
+                    $ref: '#/components/schemas/Question'
+                  progress:
+                    type: object
+                    properties:
+                      answered:
+                        type: integer
+                        description: Number of questions answered
+                      remaining_estimate:
+                        type: integer
+                        description: Estimated questions remaining
+                      category_progress:
+                        type: number
+                        format: float
+                        description: Percentage complete in category
+        '204':
+          description: No more questions available
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /discovery/questions/{questionId}:
+    get:
+      summary: Get question details
+      tags:
+        - Discovery
+      description: Returns details of a specific question
+      operationId: getQuestion
+      parameters:
+        - name: questionId
+          in: path
+          required: true
+          description: Question ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /discovery/responses:
+    post:
+      summary: Submit a response to a question
+      tags:
+        - Discovery
+      description: Records user's response to a discovery question
+      operationId: submitResponse
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - session_id
+                - question_id
+                - response_data
+              properties:
+                session_id:
+                  type: string
+                  format: uuid
+                question_id:
+                  type: string
+                  format: uuid
+                response_data:
+                  type: object
+                  description: Response format varies by question type
+                response_notes:
+                  type: string
+                  maxLength: 1000
+                emotional_state:
+                  type: string
+                  enum: [reflective, excited, uncertain, emotional, peaceful]
+                is_private:
+                  type: boolean
+                  default: true
+            examples:
+              text_response:
+                value:
+                  session_id: "123e4567-e89b-12d3-a456-426614174000"
+                  question_id: "456e7890-e89b-12d3-a456-426614174000"
+                  response_data:
+                    text: "I want to reconnect with my sister"
+                  emotional_state: "reflective"
+              multiple_choice_response:
+                value:
+                  session_id: "123e4567-e89b-12d3-a456-426614174000"
+                  question_id: "789e0123-e89b-12d3-a456-426614174000"
+                  response_data:
+                    selected: ["Fear of rejection", "Too much time has passed"]
+      responses:
+        '201':
+          description: Response recorded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Response already exists for this question in session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /discovery/responses/{responseId}:
+    get:
+      summary: Get response details
+      tags:
+        - Discovery
+      description: Returns details of a specific response
+      operationId: getResponse
+      parameters:
+        - name: responseId
+          in: path
+          required: true
+          description: Response ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    patch:
+      summary: Update a response
+      tags:
+        - Discovery
+      description: Updates response notes or privacy settings
+      operationId: updateResponse
+      parameters:
+        - name: responseId
+          in: path
+          required: true
+          description: Response ID
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                response_notes:
+                  type: string
+                  maxLength: 1000
+                is_private:
+                  type: boolean
+                share_with_family:
+                  type: boolean
+      responses:
+        '200':
+          description: Response updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      summary: Delete a response (soft delete)
+      tags:
+        - Discovery
+      description: Soft deletes a response (can be recovered within 30 days)
+      operationId: deleteResponse
+      parameters:
+        - name: responseId
+          in: path
+          required: true
+          description: Response ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Response deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /discovery/goals/suggestions:
+    post:
+      summary: Generate goal suggestions
+      tags:
+        - Discovery
+      description: Generates personalized goal suggestions based on responses
+      operationId: generateGoalSuggestions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                session_id:
+                  type: string
+                  format: uuid
+                  description: Optional session to base suggestions on
+                min_responses:
+                  type: integer
+                  default: 5
+                  description: Minimum responses required
+                max_suggestions:
+                  type: integer
+                  default: 5
+                  description: Maximum suggestions to return
+      responses:
+        '200':
+          description: Goal suggestions generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  suggestions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GoalSuggestion'
+                  based_on_responses:
+                    type: integer
+                    description: Number of responses analyzed
+        '400':
+          description: Not enough responses for suggestions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    QuestionCategory:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: "Reconnection"
+        slug:
+          type: string
+          example: "reconnection"
+        description:
+          type: string
+          example: "Relationships to rebuild or deepen"
+        icon:
+          type: string
+          example: "heart"
+        color:
+          type: string
+          example: "#E74C3C"
+        display_order:
+          type: integer
+          example: 1
+
+    Question:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        category_id:
+          type: string
+          format: uuid
+        question_text:
+          type: string
+          example: "Is there someone you wish you were closer to?"
+        question_subtext:
+          type: string
+          example: "This could be a family member, old friend, or someone you've lost touch with."
+        question_type:
+          type: string
+          enum: [text, multiple_choice, scale, yes_no]
+        response_schema:
+          type: object
+          description: Configuration for response type
+        depth_level:
+          type: integer
+          minimum: 1
+          maximum: 3
+        is_required:
+          type: boolean
+        is_sensitive:
+          type: boolean
+
+    DiscoverySession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        category_id:
+          type: string
+          format: uuid
+          nullable: true
+        status:
+          type: string
+          enum: [in_progress, completed, paused]
+        current_question_id:
+          type: string
+          format: uuid
+          nullable: true
+        questions_answered:
+          type: integer
+        started_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+        last_activity_at:
+          type: string
+          format: date-time
+        session_notes:
+          type: string
+          nullable: true
+
+    Response:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        session_id:
+          type: string
+          format: uuid
+        question_id:
+          type: string
+          format: uuid
+        response_data:
+          type: object
+          description: Structure varies by question type
+        response_notes:
+          type: string
+          nullable: true
+        emotional_state:
+          type: string
+          nullable: true
+        is_private:
+          type: boolean
+        share_with_family:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    GoalSuggestion:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Reconnect with your sister"
+        description:
+          type: string
+          example: "Based on your response about family relationships, consider reaching out to rebuild this connection"
+        category:
+          type: string
+          example: "reconnection"
+        priority_suggestion:
+          type: string
+          enum: [low, medium, high]
+        inspired_by_question_id:
+          type: string
+          format: uuid
+        inspired_by_response_id:
+          type: string
+          format: uuid
+        confidence_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: How relevant this suggestion is (0-1)
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code for client handling
+        details:
+          type: object
+          description: Additional error details
+
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: "Invalid request parameters"
+            code: "INVALID_REQUEST"
+
+    Unauthorized:
+      description: Authentication required or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: "Authentication required"
+            code: "UNAUTHORIZED"
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: "Resource not found"
+            code: "NOT_FOUND"
+
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: "An unexpected error occurred"
+            code: "INTERNAL_ERROR"
+
+tags:
+  - name: Discovery
+    description: Question-based discovery operations
