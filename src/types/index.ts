@@ -36,7 +36,7 @@ export interface QuestionCategory {
   name: string;
   slug: string;
   description: string;
-  icon: string;
+  icon?: string;
   color: string;
   display_order: number;
   is_active: boolean;

@@ -114,9 +114,9 @@ function DiscoverySessionContent() {
       <div className="max-w-4xl mx-auto px-6 py-12">
         <Card className="mb-8 border-primary-200 bg-primary-50">
           <CardHeader>
-            <CardTitle as="h2">✨ Discovery Complete!</CardTitle>
+            <CardTitle as="h2">Discovery Complete</CardTitle>
             <CardDescription>
-              Based on your thoughtful responses, here are some meaningful goals you might consider.
+              Based on your <em>thoughtful responses</em>, here are some meaningful goals you might consider.
             </CardDescription>
           </CardHeader>
           <CardContent>

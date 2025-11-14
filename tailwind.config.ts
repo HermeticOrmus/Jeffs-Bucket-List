@@ -20,7 +20,7 @@ const config: Config = {
         '3xl': ['3rem', { lineHeight: '1.8' }],
         '4xl': ['3.75rem', { lineHeight: '1.8' }],
       },
-      // Elegant sage and royal blue color palette
+      // Elegant royal blue and sage color palette
       colors: {
         brand: {
           50: '#f2f6f5',
@@ -44,19 +44,19 @@ const config: Config = {
           600: '#5f7d71',
           700: '#4a6158',
           800: '#354540',
-          900: '#202928',
+          900: '#1a2842',
         },
         secondary: {
           50: '#eff3f9',
           100: '#dce6f2',
           200: '#b3cbe3',
           300: '#89afd4',
-          400: '#5e92c5',
-          500: '#2c4875',
-          600: '#1f3554',
-          700: '#182742',
-          800: '#111a2f',
-          900: '#0a0e1d',
+          400: '#6a8cc2',
+          500: '#5375ab',
+          600: '#3d5e94',
+          700: '#2c4875',
+          800: '#22304f',
+          900: '#1a2842',
         },
         success: {
           50: '#f1f7f3',

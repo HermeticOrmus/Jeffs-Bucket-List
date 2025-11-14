@@ -158,12 +158,9 @@ export default function GoalsPage() {
       {filteredGoals.length === 0 ? (
         <Card>
           <CardContent className="text-center py-12">
-            <div className="text-6xl mb-4" aria-hidden="true">
-              🎯
-            </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4">No Goals Yet</h3>
             <p className="text-lg text-gray-700 mb-6">
-              Start your discovery journey to uncover meaningful goals that fit your life.
+              Start your <em>discovery journey</em> to uncover meaningful goals that fit your life.
             </p>
             <Link href="/discovery">
               <Button size="lg">Begin Discovery</Button>
@@ -236,7 +233,7 @@ export default function GoalsPage() {
           {groupedGoals.completed.length > 0 && (
             <section>
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Completed Goals 🎉
+                <em>Completed Goals</em>
               </h3>
               <div className="space-y-6">
                 {groupedGoals.completed.map((goal) => (

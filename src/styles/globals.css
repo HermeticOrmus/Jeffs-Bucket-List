@@ -7,38 +7,38 @@
 
 /*
   Elegant Dark Mode Color Scheme
-  Sage, Royal Blue, and sophisticated greys
-  Designed for Jeff - refined, professional, calming
+  Royal Blue foundation, Off-White text, Sage accents
+  Designed for Jeff - refined, professional, sophisticated
 */
 :root {
-  /* Primary background - deep charcoal foundation */
-  --bg-primary: #1a1d1f;
-  --bg-secondary: #22252a;
-  --bg-tertiary: #2a2e33;
-  --bg-elevated: #33373d;
+  /* Primary background - deep royal blue foundation */
+  --bg-primary: #1a2842;
+  --bg-secondary: #22304f;
+  --bg-tertiary: #2a3a5c;
+  --bg-elevated: #354669;
 
-  /* Accent backgrounds - subtle sage and blue tones */
-  --bg-accent: #1f2823;
-  --bg-accent-hover: #273530;
+  /* Accent backgrounds - subtle blue tones */
+  --bg-accent: #1f2f4d;
+  --bg-accent-hover: #263654;
 
-  /* Text colors - light grey for optimal readability */
-  --text-primary: #e8e8e8;
-  --text-secondary: #c4c4c4;
-  --text-tertiary: #9e9e9e;
-  --text-muted: #787878;
+  /* Text colors - off-white for optimal readability */
+  --text-primary: #f5f5f5;
+  --text-secondary: #d8d8d8;
+  --text-tertiary: #b0b0b0;
+  --text-muted: #8a8a8a;
 
-  /* Brand colors - sage and royal blue palette */
-  /* Sage - natural, calming, sophisticated */
+  /* Brand colors - sage accents for elegance */
+  /* Sage - natural, calming, sophisticated accents */
   --color-primary: #7a9b8e;
   --color-primary-light: #92b3a5;
   --color-primary-lighter: #aac9bc;
   --color-primary-dark: #5f7d71;
 
-  /* Deep royal blue - professional, trustworthy */
-  --color-secondary: #2c4875;
-  --color-secondary-light: #3d5e94;
-  --color-secondary-lighter: #5375ab;
-  --color-secondary-dark: #1f3554;
+  /* Deep royal blue - used for cards and elevated surfaces */
+  --color-secondary: #3d5e94;
+  --color-secondary-light: #5375ab;
+  --color-secondary-lighter: #6a8cc2;
+  --color-secondary-dark: #2c4875;
 
   /* Semantic colors - refined and accessible */
   --color-success: #6b9b7f;
@@ -48,10 +48,10 @@
   --color-error: #b87070;
   --color-error-light: #cc8a8a;
 
-  /* Borders - cool greys with subtle sage hint */
-  --border-subtle: #363a3f;
-  --border-medium: #454a50;
-  --border-strong: #555b62;
+  /* Borders - subtle blue-grey tones */
+  --border-subtle: #3a4660;
+  --border-medium: #4a5670;
+  --border-strong: #5a6680;
 
   /* Shadows - deep and refined */
   --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);

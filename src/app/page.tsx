@@ -45,8 +45,7 @@ export default function Home() {
 
           {/* Feature 2 */}
           <div className="bg-white rounded-xl p-8 shadow-md border-2 border-gray-200">
-            <div className="text-4xl mb-4" aria-hidden="true">🎯</div>
-            <h4 className="text-xl font-bold text-gray-900 mb-3">Meaningful Goals</h4>
+            <h4 className="text-xl font-bold text-gray-900 mb-3"><em>Meaningful Goals</em></h4>
             <p className="text-gray-700 leading-relaxed">
               Discover goals that fit your life: reconnecting with loved ones, sharing wisdom, or savoring simple joys.
             </p>
@@ -74,9 +73,8 @@ export default function Home() {
               key={category.name}
               className="bg-white rounded-lg p-6 shadow border-2 border-gray-200 hover:border-primary-400 transition-colors"
             >
-              <div className="text-3xl mb-3" aria-hidden="true">{category.icon}</div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">{category.name}</h4>
-              <p className="text-gray-700">{category.description}</p>
+              <h4 className="text-lg font-bold font-serif text-gray-900 mb-2">{category.name}</h4>
+              <p className="text-gray-700"><em>{category.description}</em></p>
             </div>
           ))}
         </div>
@@ -104,32 +102,26 @@ export default function Home() {
 const categories = [
   {
     name: 'Reconnection',
-    icon: '❤️',
     description: 'Relationships to rebuild or deepen with people who matter',
   },
   {
     name: 'Learning',
-    icon: '📚',
     description: 'Skills to acquire and knowledge to explore at your own pace',
   },
   {
     name: 'Creation',
-    icon: '🎨',
     description: 'Things to make, build, or bring into the world',
   },
   {
     name: 'Completion',
-    icon: '✅',
     description: 'Unfinished business and projects worth completing',
   },
   {
     name: 'Contribution',
-    icon: '🤝',
     description: 'Ways to give back and make a difference in your community',
   },
   {
     name: 'Simple Joys',
-    icon: '🌟',
     description: 'Moments to savor and experiences to enjoy regularly',
   },
 ]
