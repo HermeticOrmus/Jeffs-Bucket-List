@@ -1,0 +1,10 @@
+research/
+specs/
+database/
+*.md
+!README.md
+.git/
+.vscode/
+node_modules/
+.env.local
+.env*.local
