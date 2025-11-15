@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import Anthropic from '@anthropic-ai/sdk'
 
 // Jeff's personality and conversation guidelines
 const JEFF_SYSTEM_PROMPT = `You are Jeff, a wise conversational sage helping adults 60+ discover what truly matters in their remaining years.
@@ -126,9 +127,18 @@ interface Message {
   content: string
 }
 
+// Initialize Anthropic client
+const getAnthropicClient = () => {
+  const apiKey = process.env.ANTHROPIC_API_KEY
+  if (!apiKey || apiKey.includes('placeholder')) {
+    return null
+  }
+  return new Anthropic({ apiKey })
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { messages } = await req.json() as { messages: Message[] }
+    const { messages, stream } = await req.json() as { messages: Message[], stream?: boolean }
 
     if (!messages || messages.length === 0) {
       return NextResponse.json(
@@ -137,11 +147,84 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // For now, use a simulated thoughtful response
-    // In production, this would call an LLM API (OpenAI, Anthropic, etc.)
-    const response = await generateJeffResponse(messages)
+    const client = getAnthropicClient()
 
-    return NextResponse.json({ message: response })
+    // If no valid API key, fall back to simulated responses
+    if (!client) {
+      console.warn('⚠️  No Anthropic API key configured. Using simulated responses. Set ANTHROPIC_API_KEY in .env.local')
+      const response = await generateJeffResponse(messages)
+      return NextResponse.json({ message: response })
+    }
+
+    // Use real Claude API with streaming support
+    try {
+      if (stream) {
+        // Streaming response for better UX
+        const streamResponse = await client.messages.stream({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1024,
+          system: JEFF_SYSTEM_PROMPT,
+          messages: messages.map(m => ({
+            role: m.role,
+            content: m.content
+          }))
+        })
+
+        const encoder = new TextEncoder()
+        const readable = new ReadableStream({
+          async start(controller) {
+            try {
+              for await (const chunk of streamResponse) {
+                if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
+                  const data = `data: ${JSON.stringify({ text: chunk.delta.text })}\n\n`
+                  controller.enqueue(encoder.encode(data))
+                }
+              }
+              controller.enqueue(encoder.encode('data: [DONE]\n\n'))
+              controller.close()
+            } catch (error) {
+              console.error('Streaming error:', error)
+              controller.error(error)
+            }
+          }
+        })
+
+        return new Response(readable, {
+          headers: {
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+          },
+        })
+      } else {
+        // Non-streaming response
+        const response = await client.messages.create({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1024,
+          system: JEFF_SYSTEM_PROMPT,
+          messages: messages.map(m => ({
+            role: m.role,
+            content: m.content
+          }))
+        })
+
+        const assistantMessage = response.content[0].type === 'text'
+          ? response.content[0].text
+          : 'I apologize, but I had trouble generating a response. Please try again.'
+
+        return NextResponse.json({ message: assistantMessage })
+      }
+    } catch (apiError: any) {
+      console.error('Claude API error:', apiError)
+
+      // If API error, fall back to simulated response
+      console.warn('⚠️  Claude API error. Falling back to simulated response.')
+      const fallbackResponse = await generateJeffResponse(messages)
+      return NextResponse.json({
+        message: fallbackResponse,
+        warning: 'Using simulated response due to API error'
+      })
+    }
   } catch (error) {
     console.error('Chat API error:', error)
     return NextResponse.json(

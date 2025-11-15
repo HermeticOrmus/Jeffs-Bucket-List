@@ -53,6 +53,7 @@ The platform is now fully functional with the core discovery flow implemented. R
 
 - **Frontend**: Next.js 15 (App Router) with TypeScript
 - **Styling**: Tailwind CSS with custom senior-friendly configuration
+- **AI**: Anthropic Claude API (Sonnet 4) for conversational sage "Jeff"
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth (ready for Phase 2)
 - **Deployment**: Vercel (optimized configuration included)
@@ -107,7 +108,10 @@ Jeffs-Bucket-List/
 3. **Set up environment variables**
    ```bash
    cp .env.local.example .env.local
-   # Edit .env.local with your Supabase credentials
+   # Edit .env.local with:
+   # - Supabase credentials (or use placeholders for local dev)
+   # - ANTHROPIC_API_KEY from https://console.anthropic.com/
+   #   (Optional: Without API key, Jeff will use simulated responses)
    ```
 
 4. **Run development server**
@@ -189,6 +193,39 @@ See `database/migrations/001_initial_schema.sql` for full schema.
 - Age-appropriate and respectful language
 - Optional skip functionality on all questions
 
+## Claude AI Integration
+
+Jeff's conversational sage personality is powered by **Anthropic's Claude API (Sonnet 4)**.
+
+### Features
+
+- **Real AI Conversations**: Direct integration with Claude for thoughtful, contextual responses
+- **Jeff's Personality**: Wise sage character defined through detailed system prompts
+- **Graceful Fallback**: Automatic simulated responses if API key not configured
+- **Streaming Support**: Infrastructure ready for real-time response streaming
+- **Cost Effective**: ~$0.07-$0.10 per conversation with pay-per-use pricing
+
+### Setup
+
+1. Get API key from [Anthropic Console](https://console.anthropic.com/)
+2. Add to `.env.local`:
+   ```bash
+   ANTHROPIC_API_KEY=sk-ant-your-key-here
+   ```
+3. Chat with Jeff at `/chat`
+
+**See [CLAUDE_INTEGRATION.md](CLAUDE_INTEGRATION.md) for detailed documentation.**
+
+### Why Claude (Not LibreChat)
+
+We evaluated [Hermetic-LibreChat](https://github.com/HermeticOrmus/Hermetic-LibreChat) but chose direct Claude integration because:
+- **Simpler**: No Docker services, databases, or proxy layers
+- **Cleaner**: Works seamlessly with Next.js serverless deployment
+- **Controlled**: Full control over Jeff's personality and conversation flow
+- **Maintainable**: Straightforward codebase without unnecessary complexity
+
+LibreChat is excellent as a standalone ChatGPT alternative, but our needs are better served by direct API integration.
+
 ## What's Next (Phase 2)
 
 ### Planned Features
@@ -238,6 +275,8 @@ Following Hermetic principles and Gold Hat philosophy:
 ## Documentation
 
 - **[CLAUDE.md](CLAUDE.md)**: Development guidelines and project philosophy
+- **[CLAUDE_INTEGRATION.md](CLAUDE_INTEGRATION.md)**: Claude AI integration guide
+- **[JEFF_AI_PERSONALITY.md](JEFF_AI_PERSONALITY.md)**: Jeff's conversational sage personality
 - **[DEPLOYMENT.md](DEPLOYMENT.md)**: Comprehensive deployment guide
 - **[specs/](specs/)**: Detailed feature specifications
 - **[research/](research/)**: Competitive analysis and market research

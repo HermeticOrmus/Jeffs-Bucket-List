@@ -10,26 +10,27 @@
     "a11y-test": "npm run build && node scripts/a11y-test.js"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "next": "15.5.6",
-    "@supabase/supabase-js": "^2.39.0",
+    "@anthropic-ai/sdk": "^0.69.0",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/ssr": "^0.0.10",
-    "zustand": "^4.4.7",
+    "@supabase/supabase-js": "^2.39.0",
     "date-fns": "^3.0.6",
-    "framer-motion": "^10.16.16"
+    "framer-motion": "^10.16.16",
+    "next": "15.5.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
+    "@axe-core/react": "^4.8.3",
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
-    "typescript": "^5.3.3",
-    "tailwindcss": "^3.4.0",
-    "postcss": "^8.4.32",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.56.0",
     "eslint-config-next": "15.5.6",
-    "@axe-core/react": "^4.8.3"
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.3"
   }
 }
