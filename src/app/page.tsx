@@ -2,99 +2,215 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
-      {/* Hero Section */}
-      <section className="text-center mb-16" aria-labelledby="hero-heading">
-        <h2 id="hero-heading" className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          Live Your Remaining Years with<br />Intention and Meaning
-        </h2>
-        <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
-          Not just another bucket list. A thoughtful journey to discover what truly matters to you
-          through guided reflection and age-appropriate goals.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+    <div className="min-h-screen" style={{ background: 'hsl(var(--background))' }}>
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        {/* Hero Section */}
+        <section className="text-center mb-20" aria-labelledby="hero-heading">
+          <h1
+            id="hero-heading"
+            className="text-5xl md:text-6xl font-semibold mb-6"
+            style={{
+              color: 'hsl(var(--text))',
+              fontFamily: 'var(--font-serif)',
+              lineHeight: '1.2'
+            }}
+          >
+            Live Your Remaining Years with<br />
+            <span className="flavor-text">Intention and Meaning</span>
+          </h1>
+          <p
+            className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed"
+            style={{ color: 'hsl(var(--text-secondary))' }}
+          >
+            Not just another bucket list. A thoughtful journey to discover what truly matters to you
+            through guided reflection and age-appropriate goals.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <Link
+              href="/discovery"
+              className="inline-block text-xl font-semibold px-12 py-5 rounded-lg transition-all no-underline shadow-lg hover:shadow-xl min-h-[56px] flex items-center"
+              style={{
+                background: 'hsl(var(--accent-teal))',
+                color: 'hsl(var(--background))',
+              }}
+            >
+              Start Your Discovery Journey
+            </Link>
+            <Link
+              href="/about"
+              className="inline-block text-xl font-semibold px-12 py-5 rounded-lg transition-all no-underline min-h-[56px] flex items-center"
+              style={{
+                background: 'transparent',
+                color: 'hsl(var(--accent-teal))',
+                border: '2px solid hsl(var(--accent-teal))'
+              }}
+            >
+              Learn More
+            </Link>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="mb-20" aria-labelledby="features-heading">
+          <h2
+            id="features-heading"
+            className="text-4xl font-semibold text-center mb-16"
+            style={{
+              color: 'hsl(var(--text))',
+              fontFamily: 'var(--font-serif)'
+            }}
+          >
+            How It Works
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div
+              className="rounded-xl p-8 transition-all"
+              style={{
+                background: 'hsl(var(--surface))',
+                border: '2px solid hsl(var(--border))'
+              }}
+            >
+              <h3
+                className="text-2xl font-semibold mb-4"
+                style={{ color: 'hsl(var(--text))' }}
+              >
+                Thoughtful Questions
+              </h3>
+              <p
+                className="text-lg leading-relaxed"
+                style={{ color: 'hsl(var(--text-secondary))' }}
+              >
+                Not generic prompts. Age-appropriate questions that help you reflect on what truly matters in this stage of life.
+              </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div
+              className="rounded-xl p-8 transition-all"
+              style={{
+                background: 'hsl(var(--surface))',
+                border: '2px solid hsl(var(--border))'
+              }}
+            >
+              <h3
+                className="text-2xl font-semibold mb-4"
+                style={{ color: 'hsl(var(--text))' }}
+              >
+                <em className="flavor-text">Meaningful Goals</em>
+              </h3>
+              <p
+                className="text-lg leading-relaxed"
+                style={{ color: 'hsl(var(--text-secondary))' }}
+              >
+                Discover goals that fit your life: reconnecting with loved ones, sharing wisdom, or savoring simple joys.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div
+              className="rounded-xl p-8 transition-all"
+              style={{
+                background: 'hsl(var(--surface))',
+                border: '2px solid hsl(var(--border))'
+              }}
+            >
+              <h3
+                className="text-2xl font-semibold mb-4"
+                style={{ color: 'hsl(var(--text))' }}
+              >
+                Private by Default
+              </h3>
+              <p
+                className="text-lg leading-relaxed"
+                style={{ color: 'hsl(var(--text-secondary))' }}
+              >
+                Your reflections are yours alone. Choose what to share with family, or keep everything private.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Categories Preview */}
+        <section className="mb-20" aria-labelledby="categories-heading">
+          <h2
+            id="categories-heading"
+            className="text-4xl font-semibold text-center mb-16"
+            style={{
+              color: 'hsl(var(--text))',
+              fontFamily: 'var(--font-serif)'
+            }}
+          >
+            Life Areas to Explore
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {categories.map((category) => (
+              <div
+                key={category.name}
+                className="rounded-lg p-6 transition-all hover:scale-105"
+                style={{
+                  background: 'hsl(var(--surface))',
+                  border: '2px solid hsl(var(--border))',
+                }}
+              >
+                <h3
+                  className="text-xl font-semibold mb-3"
+                  style={{
+                    color: 'hsl(var(--accent-teal))',
+                    fontFamily: 'var(--font-serif)'
+                  }}
+                >
+                  {category.name}
+                </h3>
+                <p
+                  className="text-lg leading-relaxed"
+                  style={{ color: 'hsl(var(--text-secondary))' }}
+                >
+                  <em>{category.description}</em>
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section
+          className="rounded-2xl p-12 md:p-16 text-center"
+          style={{
+            background: 'hsl(var(--surface))',
+            border: '2px solid hsl(var(--accent-teal))'
+          }}
+        >
+          <h2
+            className="text-4xl font-semibold mb-6"
+            style={{
+              color: 'hsl(var(--text))',
+              fontFamily: 'var(--font-serif)'
+            }}
+          >
+            Ready to Begin?
+          </h2>
+          <p
+            className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto leading-relaxed"
+            style={{ color: 'hsl(var(--text-secondary))' }}
+          >
+            Take 10-15 minutes to explore what truly matters to you.
+            <br />
+            <em className="flavor-text">No pressure, no judgment, just thoughtful reflection.</em>
+          </p>
           <Link
             href="/discovery"
-            className="inline-block bg-primary-500 hover:bg-primary-600 text-white text-lg font-bold px-8 py-4 rounded-lg transition-colors no-underline shadow-lg"
+            className="inline-block text-xl font-semibold px-12 py-5 rounded-lg transition-all no-underline shadow-lg hover:shadow-xl min-h-[56px] flex items-center justify-center mx-auto"
+            style={{
+              background: 'hsl(var(--accent-teal))',
+              color: 'hsl(var(--background))',
+              maxWidth: 'fit-content'
+            }}
           >
-            Start Your Discovery Journey
+            Start Discovery
           </Link>
-          <Link
-            href="/about"
-            className="inline-block bg-white hover:bg-gray-50 text-gray-800 text-lg font-bold px-8 py-4 rounded-lg transition-colors no-underline border-2 border-gray-300"
-          >
-            Learn More
-          </Link>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="mb-16" aria-labelledby="features-heading">
-        <h3 id="features-heading" className="text-3xl font-bold text-center text-gray-900 mb-12">
-          How It Works
-        </h3>
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Feature 1 */}
-          <div className="bg-white rounded-xl p-8 shadow-md border-2 border-gray-200">
-            <div className="text-4xl mb-4" aria-hidden="true">🤔</div>
-            <h4 className="text-xl font-bold text-gray-900 mb-3">Thoughtful Questions</h4>
-            <p className="text-gray-700 leading-relaxed">
-              Not generic prompts. Age-appropriate questions that help you reflect on what truly matters in this stage of life.
-            </p>
-          </div>
-
-          {/* Feature 2 */}
-          <div className="bg-white rounded-xl p-8 shadow-md border-2 border-gray-200">
-            <h4 className="text-xl font-bold text-gray-900 mb-3"><em>Meaningful Goals</em></h4>
-            <p className="text-gray-700 leading-relaxed">
-              Discover goals that fit your life: reconnecting with loved ones, sharing wisdom, or savoring simple joys.
-            </p>
-          </div>
-
-          {/* Feature 3 */}
-          <div className="bg-white rounded-xl p-8 shadow-md border-2 border-gray-200">
-            <div className="text-4xl mb-4" aria-hidden="true">🔒</div>
-            <h4 className="text-xl font-bold text-gray-900 mb-3">Private by Default</h4>
-            <p className="text-gray-700 leading-relaxed">
-              Your reflections are yours alone. Choose what to share with family, or keep everything private.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Categories Preview */}
-      <section className="mb-16" aria-labelledby="categories-heading">
-        <h3 id="categories-heading" className="text-3xl font-bold text-center text-gray-900 mb-12">
-          Life Areas to Explore
-        </h3>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((category) => (
-            <div
-              key={category.name}
-              className="bg-white rounded-lg p-6 shadow border-2 border-gray-200 hover:border-primary-400 transition-colors"
-            >
-              <h4 className="text-lg font-bold font-serif text-gray-900 mb-2">{category.name}</h4>
-              <p className="text-gray-700"><em>{category.description}</em></p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-12 text-center">
-        <h3 className="text-3xl font-bold text-gray-900 mb-4">
-          Ready to Begin?
-        </h3>
-        <p className="text-xl text-gray-700 mb-6 max-w-2xl mx-auto">
-          Take 10-15 minutes to explore what truly matters to you. No pressure, no judgment, just thoughtful reflection.
-        </p>
-        <Link
-          href="/discovery"
-          className="inline-block bg-primary-500 hover:bg-primary-600 text-white text-lg font-bold px-10 py-4 rounded-lg transition-colors no-underline shadow-lg"
-        >
-          Start Discovery
-        </Link>
-      </section>
+        </section>
+      </div>
     </div>
   )
 }
