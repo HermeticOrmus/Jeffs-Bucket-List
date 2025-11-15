@@ -1,0 +1,196 @@
+/* Design System Tokens */
+:root {
+  /* Primary Colors - Royal Blue palette */
+  --primary: 217 91% 40%;
+  --primary-light: 217 91% 55%;
+  --primary-dark: 217 91% 28%;
+  
+  /* Neutral Colors - Off White and Grey for dark mode feel */
+  --background: 217 25% 15%;
+  --surface: 217 25% 20%;
+  --text: 217 20% 92%;
+  --text-secondary: 217 15% 70%;
+  --border: 217 20% 35%;
+  --border-light: 217 20% 42%;
+  
+  /* Accent Colors - Sage Green */
+  --accent-teal: 138 29% 60%;
+  --accent-teal-light: 138 32% 75%;
+  --success: 142 71% 45%;
+  --warning: 38 92% 50%;
+  --error: 0 84% 60%;
+  
+  /* Semantic Colors */
+  --foreground: var(--text);
+  --card-bg: var(--background);
+  --muted: var(--text-secondary);
+  
+  /* Shadows - Enhanced for dark backgrounds */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.6), 0 8px 10px -6px rgb(0 0 0 / 0.5);
+  
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Georgia', 'Garamond', 'Times New Roman', serif;
+  
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: hsl(var(--background));
+  color: hsl(var(--text));
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typography Base */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  color: hsl(var(--text));
+}
+
+p {
+  color: hsl(var(--text-secondary));
+}
+
+a {
+  color: hsl(var(--primary));
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+a:hover {
+  color: hsl(var(--primary-dark));
+}
+
+/* Button Base Styles */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  border: none;
+  outline: none;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+/* Utility Classes */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Flavor Text - Italic Serif */
+.flavor-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: hsl(var(--accent-teal));
+}
+
+/* Focus Visible for Accessibility */
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
