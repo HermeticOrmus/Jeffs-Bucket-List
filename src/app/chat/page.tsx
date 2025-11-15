@@ -109,17 +109,8 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="min-h-screen py-12 px-4" style={{ background: 'hsl(var(--background))' }}>
+    <div className="min-h-screen py-8 px-4" style={{ background: 'hsl(var(--background))' }}>
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-semibold mb-3" style={{ color: 'hsl(var(--text))', fontFamily: 'var(--font-serif)' }}>
-            Chat with Jeff
-          </h1>
-          <p className="text-lg flavor-text">
-            A wise conversation about living with intention
-          </p>
-        </div>
 
         {/* Chat Container */}
         <Card style={{ background: 'hsl(var(--surface))', border: '1px solid hsl(var(--border))' }}>
@@ -235,20 +226,12 @@ export default function ChatPage() {
                 </Button>
               </div>
               <p className="mt-3 text-sm text-center" style={{ color: 'hsl(var(--text-secondary) / 0.7)' }}>
-                This is a <em className="flavor-text">private conversation</em>. Take your time and share what feels right.
+                <em className="flavor-text">Your conversation is private.</em>
               </p>
             </div>
           </CardContent>
         </Card>
 
-        {/* Helper Text */}
-        <div className="mt-6 text-center">
-          <p className="text-sm" style={{ color: 'hsl(var(--text-secondary))' }}>
-            Jeff is a wise guide who's seen a lot and wants the best life for you.
-            <br />
-            <em className="flavor-text">He'll ask powerful questions and help you see clearly what matters.</em>
-          </p>
-        </div>
       </div>
     </div>
   )
