@@ -1,20 +1,22 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+// Use placeholders if env vars not set to allow build to succeed
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDUxOTIwMDAsImV4cCI6MTk2MDc2ODAwMH0.placeholder'
 
-// Create Supabase client only if environment variables are properly configured
-export const supabase = (supabaseUrl && supabaseAnonKey)
-  ? createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-      },
-    })
-  : null
+// Create Supabase client (will use placeholders if not configured)
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+  },
+})
 
-// Helper to check if Supabase is configured
-export const isSupabaseConfigured = () => supabase !== null
+// Helper to check if Supabase is actually configured (not using placeholders)
+export const isSupabaseConfigured = () => {
+  return process.env.NEXT_PUBLIC_SUPABASE_URL !== undefined &&
+         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY !== undefined
+}
 
 // Type-safe database types (will be generated from schema)
 export type Database = {
