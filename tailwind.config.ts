@@ -9,16 +9,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // Senior-friendly font sizes (minimum 18px)
+      // Senior-friendly font sizes (minimum 18px for all text)
       fontSize: {
-        'xs': ['1rem', { lineHeight: '1.5' }],
-        'sm': ['1.125rem', { lineHeight: '1.6' }],
-        'base': ['1.25rem', { lineHeight: '1.7' }],
-        'lg': ['1.5rem', { lineHeight: '1.75' }],
-        'xl': ['1.875rem', { lineHeight: '1.75' }],
-        '2xl': ['2.25rem', { lineHeight: '1.8' }],
-        '3xl': ['3rem', { lineHeight: '1.8' }],
-        '4xl': ['3.75rem', { lineHeight: '1.8' }],
+        'xs': ['1.125rem', { lineHeight: '1.6' }],     // 18px - minimum readable size
+        'sm': ['1.125rem', { lineHeight: '1.6' }],     // 18px - minimum readable size
+        'base': ['1.25rem', { lineHeight: '1.7' }],    // 20px - preferred body text
+        'lg': ['1.5rem', { lineHeight: '1.75' }],      // 24px - large text
+        'xl': ['1.875rem', { lineHeight: '1.75' }],    // 30px - extra large
+        '2xl': ['2.25rem', { lineHeight: '1.8' }],     // 36px - headings
+        '3xl': ['3rem', { lineHeight: '1.8' }],        // 48px - large headings
+        '4xl': ['3.75rem', { lineHeight: '1.8' }],     // 60px - hero headings
       },
       // Elegant royal blue and sage color palette
       colors: {

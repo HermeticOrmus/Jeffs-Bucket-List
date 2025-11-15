@@ -130,7 +130,7 @@ export default function GoalsPage() {
         <div className="flex gap-2 flex-wrap">
           <button
             onClick={() => setFilter('all')}
-            className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+            className={`px-4 py-2 text-base rounded-lg font-semibold transition-colors min-h-[48px] ${
               filter === 'all'
                 ? 'bg-primary-500 text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -142,7 +142,7 @@ export default function GoalsPage() {
             <button
               key={status}
               onClick={() => setFilter(status as GoalStatus)}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+              className={`px-4 py-2 text-base rounded-lg font-semibold transition-colors min-h-[48px] ${
                 filter === status
                   ? 'bg-primary-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'

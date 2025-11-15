@@ -42,7 +42,7 @@ export default function Navigation() {
             <h1 className="text-2xl font-semibold" style={{ color: 'hsl(var(--accent-teal))', fontFamily: 'var(--font-serif)' }}>
               Jeff&apos;s Bucket List
             </h1>
-            <p className="text-xs flavor-text">
+            <p className="text-sm flavor-text">
               Living with intention and meaning
             </p>
           </div>

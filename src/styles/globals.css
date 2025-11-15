@@ -73,7 +73,7 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 16px; /* Base for rem calculations - components override to 18px+ */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -83,8 +83,9 @@ body {
   font-family: var(--font-sans);
   background-color: hsl(var(--background));
   color: hsl(var(--text));
-  line-height: 1.6;
+  line-height: 1.7; /* Improved readability for seniors */
   font-weight: 400;
+  font-size: 1.25rem; /* 20px - preferred body text size */
 }
 
 /* Typography */
@@ -117,10 +118,11 @@ a:hover {
   color: hsl(var(--accent-teal));
 }
 
-/* Focus styles for accessibility */
+/* Focus styles for accessibility - high visibility for seniors */
 *:focus-visible {
-  outline: 2px solid hsl(var(--primary));
-  outline-offset: 2px;
+  outline: 3px solid hsl(var(--accent-teal));
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px hsl(var(--accent-teal) / 0.2);
 }
 
 /* Skip to content link */
@@ -156,9 +158,11 @@ input[type="number"],
 textarea,
 select {
   width: 100%;
-  padding: 0.75rem 1rem;
+  min-height: 48px; /* Accessible touch target */
+  padding: 0.875rem 1.125rem; /* Generous padding for comfort */
+  font-size: 1.125rem; /* 18px minimum */
   background-color: hsl(var(--surface));
-  border: 1px solid hsl(var(--border));
+  border: 2px solid hsl(var(--border)); /* Thicker border for visibility */
   border-radius: 0.5rem;
   color: hsl(var(--text));
   transition: all 0.2s ease;
@@ -169,7 +173,7 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: hsl(var(--accent-teal));
-  box-shadow: 0 0 0 3px hsl(var(--accent-teal) / 0.1);
+  box-shadow: 0 0 0 4px hsl(var(--accent-teal) / 0.2); /* Stronger focus indicator */
 }
 
 input::placeholder,

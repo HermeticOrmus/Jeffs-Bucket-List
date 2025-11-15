@@ -184,7 +184,7 @@ export default function SignUpPage() {
               />
             </div>
 
-            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+            <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
               By creating an account, you agree to our privacy-first approach. Your data is yours alone,
               and we'll never share it without your explicit consent.
             </p>

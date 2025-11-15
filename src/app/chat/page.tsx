@@ -156,7 +156,7 @@ export default function ChatPage() {
                       </div>
                     )}
                     <p
-                      className="leading-relaxed whitespace-pre-wrap"
+                      className="text-base leading-relaxed whitespace-pre-wrap"
                       style={{
                         color: 'hsl(var(--text))',
                         fontFamily: message.role === 'assistant' ? 'var(--font-serif)' : 'var(--font-sans)',
@@ -165,7 +165,7 @@ export default function ChatPage() {
                     >
                       {message.content}
                     </p>
-                    <div className="mt-2 text-xs" style={{ color: 'hsl(var(--text-secondary) / 0.6)' }}>
+                    <div className="mt-2 text-sm" style={{ color: 'hsl(var(--text-secondary) / 0.6)' }}>
                       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </div>
                   </div>
@@ -185,7 +185,7 @@ export default function ChatPage() {
                       <span className="text-sm font-semibold flavor-text">Jeff</span>
                     </div>
                     <p
-                      className="leading-relaxed animate-gentle-pulse"
+                      className="text-base leading-relaxed animate-gentle-pulse"
                       style={{
                         color: 'hsl(var(--text-secondary))',
                         fontFamily: 'var(--font-serif)',
@@ -234,7 +234,7 @@ export default function ChatPage() {
                   Send
                 </Button>
               </div>
-              <p className="mt-3 text-xs text-center" style={{ color: 'hsl(var(--text-secondary) / 0.7)' }}>
+              <p className="mt-3 text-sm text-center" style={{ color: 'hsl(var(--text-secondary) / 0.7)' }}>
                 This is a <em className="flavor-text">private conversation</em>. Take your time and share what feels right.
               </p>
             </div>
